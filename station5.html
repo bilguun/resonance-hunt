@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echo Station 5</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Echo Station 5</h1>
+        <p class="tagline">Purple Clarity Riddle</p>
+    </header>
+    <main>
+        <section>
+            <h2>Riddle</h2>
+            <p>
+                Which crystal known for its purple hue and clarity is prized in healing rituals?
+            </p>
+            <form onsubmit="return checkAnswer(event, 5, ['amethyst'], 'station6.html');">
+                <label for="answer">Your answer:</label>
+                <input type="text" id="answer" name="answer" required>
+                <button type="submit" class="button">Submit</button>
+            </form>
+            <div id="feedback"></div>
+        </section>
+        <section class="progress">
+            <h2>Your Progress</h2>
+            <div id="token-board" class="token-board"></div>
+            <p id="progress-message"></p>
+        </section>
+    </main>
+    <footer>
+        <p><a href="index.html">Back to Start</a></p>
+    </footer>
+</body>
+</html>

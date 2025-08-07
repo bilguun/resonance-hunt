@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symphony of Stones</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional styles for the finale animation */
+        .layer-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            margin-top: 2rem;
+            overflow: hidden;
+        }
+        .stone-layer {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            height: 30px;
+            border-radius: 8px;
+            opacity: 0;
+            animation: rise 6s forwards;
+        }
+        .stone-layer:nth-child(1) { background: #8c7b6e; animation-delay: 0s; }
+        .stone-layer:nth-child(2) { background: #a08d7a; animation-delay: 0.5s; }
+        .stone-layer:nth-child(3) { background: #b39e86; animation-delay: 1s; }
+        .stone-layer:nth-child(4) { background: #c7b195; animation-delay: 1.5s; }
+        .stone-layer:nth-child(5) { background: #dac2a3; animation-delay: 2s; }
+        .stone-layer:nth-child(6) { background: #edd4b2; animation-delay: 2.5s; }
+        .stone-layer:nth-child(7) { background: #ffe7c0; animation-delay: 3s; }
+        @keyframes rise {
+            from { bottom: -40px; opacity: 0; }
+            to { bottom: calc(40px * var(--layer-index)); opacity: 1; }
+        }
+    </style>
+    <script defer src="script.js"></script>
+    <script>
+        // On DOM load, verify that all tokens have been collected
+        document.addEventListener('DOMContentLoaded', () => {
+            let collected = 0;
+            for (let i = 1; i <= STATION_COUNT; i++) {
+                if (localStorage.getItem(`token${i}`)) {
+                    collected++;
+                }
+            }
+            const content = document.getElementById('final-content');
+            if (collected === STATION_COUNT) {
+                content.innerHTML = `<h2>Congratulations!</h2><p>You have collected all seven Echo Tokens and now witness the Symphony of Stones. The layers of earth rise, revealing a sculptural harmony born from time, river, and stone.</p>`;
+                // Create animation layers
+                const container = document.createElement('div');
+                container.classList.add('layer-container');
+                for (let i = 1; i <= STATION_COUNT; i++) {
+                    const layer = document.createElement('div');
+                    layer.classList.add('stone-layer');
+                    layer.style.setProperty('--layer-index', i.toString());
+                    container.appendChild(layer);
+                }
+                content.appendChild(container);
+            } else {
+                content.innerHTML = `<h2>Almost there!</h2><p>You need all seven tokens to unlock the Symphony. You currently have ${collected} of ${STATION_COUNT}. Return to the Hunt to find the remaining echoes.</p><p><a href="index.html" class="button">Return to Hunt</a></p>`;
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Symphony of Stones</h1>
+        <p class="tagline">Reveal the hidden harmony</p>
+    </header>
+    <main>
+        <section id="final-content">
+            <!-- Content loaded via script depending on collected tokens -->
+        </section>
+        <section class="progress">
+            <h2>Your Progress</h2>
+            <div id="token-board" class="token-board"></div>
+            <p id="progress-message"></p>
+        </section>
+    </main>
+    <footer>
+        <p><a href="index.html">Back to Start</a></p>
+    </footer>
+</body>
+</html>
